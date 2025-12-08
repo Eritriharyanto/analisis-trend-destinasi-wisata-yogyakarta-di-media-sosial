@@ -1,0 +1,22 @@
+/* import Bootstrap */
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+/* kustom sederhana */
+:root{
+  --primary:#0d6efd; /* biru bootstrap default, bisa ganti ke biru laut */
+  --accent:#ff8c00;  /* aksen jingga opsional */
+}
+
+body{
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: #fff;
+  color: #222;
+  -webkit-font-smoothing:antialiased;
+}
+.hero-overlay{
+  background: rgba(0,0,0,0.45);
+}
+.card-img-top{
+  height: 220px;
+  object-fit: cover;
+}
