@@ -1,5 +1,5 @@
 import DestinasiCard from "../components/DestinasiCard";
-import "./home.css";
+import "../css/home.css";
 
 export default function Destinasi() {
   const list = [

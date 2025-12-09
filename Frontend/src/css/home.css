@@ -1,6 +1,6 @@
 /* ------------------- GLOBAL ------------------- */
 body {
-  background: linear-gradient(to bottom, #999999, #ffffff, #999999) !important;
+  background: linear-gradient(to bottom, #61616146, #ffffff, #61616146) !important;
   min-height: 100vh;
   background-attachment: fixed;
 }
@@ -14,7 +14,7 @@ body {
 .yowi-navbar {
   background-color: #2f2e2e !important;
   padding: 10px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 238, 0, 0.08);
 }
 
 /* TEXT LOGO "Yowisata" */
@@ -73,7 +73,7 @@ body {
   padding: 35px 55px;
   border-radius: 18px;
   backdrop-filter: blur(4px);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.836);
   text-align: center;
   animation: fadeIn 0.7s ease-in-out;
 }
@@ -95,7 +95,7 @@ body {
 
 .btn-hero {
   margin-top: 20px;
-  background-color: #d4a017;
+  background-color: #ffd54f;
   color: white;
   padding: 12px 34px;
   font-size: 18px;
@@ -349,7 +349,7 @@ body {
 /* FOOTER */
 .yowi-footer {
   background: transparent !important;
-  color: #000;
+  color: #000000;
   padding: 25px 0;
   margin-top: 60px;
   text-align: center;

@@ -1,12 +1,11 @@
 import pandas as pd
 import calendar
-from collections import Counter
 from config.db import get_db
-from service.topic_service import load_lda_model
+from service.topic_service import load_lda_model, topic_label
 
-# ===============================================
+# =====================================================
 # TREND BULANAN REVIEW
-# ===============================================
+# =====================================================
 def trend_bulanan(posts):
     df = pd.DataFrame(posts)
 
@@ -27,9 +26,28 @@ def trend_bulanan(posts):
     return result.to_dict(orient="records")
 
 
-# ===============================================
-# TREND TOPIC LDA PER TAHUN
-# ===============================================
+# =====================================================
+# PARSE TERMS FROM LDA STRING -> JSON LIST
+# =====================================================
+def topic_term_to_list(term_str):
+    parts = term_str.split(" + ")
+    terms = []
+    for p in parts:
+        try:
+            weight, word = p.split("*")
+            word = word.replace('"', "")
+            terms.append({
+                "word": word,
+                "weight": float(weight)
+            })
+        except:
+            pass
+    return terms
+
+
+# =====================================================
+# TREND TOPIK LDA PER TAHUN
+# =====================================================
 def trend_topic_tahunan(nama, tahun):
     conn = get_db()
     cursor = conn.cursor(dictionary=True)
@@ -40,7 +58,6 @@ def trend_topic_tahunan(nama, tahun):
         WHERE nama_wisata = %s AND YEAR(created_at) = %s
         GROUP BY topic
         ORDER BY count DESC
-        LIMIT 10
     """, (nama, tahun))
 
     rows = cursor.fetchall()
@@ -50,16 +67,24 @@ def trend_topic_tahunan(nama, tahun):
     if not rows:
         return []
 
-    # Load model untuk mengambil top terms
+    # Load model LDA untuk wisata tersebut
     model, id2word = load_lda_model(nama)
 
     output = []
     for r in rows:
-        terms = model.print_topic(r["topic"])
+        topic_id = int(r["topic"])
+
+        # Ambil 20 kata tertinggi di topik ini
+        terms_raw = model.print_topic(topic_id, topn=20)
+
+        # Ambil nama label jika ada
+        label = topic_label.get(nama, {}).get(topic_id, f"Topik {topic_id}")
+
         output.append({
-            "topic": r["topic"],
+            "topic": topic_id,
+            "topic_label": label,
             "count": r["count"],
-            "terms": terms
+            "terms": topic_term_to_list(terms_raw)
         })
 
     return output

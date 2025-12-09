@@ -5,7 +5,7 @@ from service.wisata_service import get_posts, insert_auto_post
 from service.preprocess import full_preprocess
 from service.topic_service import load_lda_model, predict_topic_from_stemming
 from service.analytics_service import trend_bulanan
-from service.analytics_service import trend_topic_tahunan
+from service.analytics_service import trend_topic_tahunan,  topic_label
 import ast
 
 wisata_bp = Blueprint("wisata", __name__, url_prefix="/wisata")
@@ -55,10 +55,8 @@ def add_raw_post(nama):
 
 @wisata_bp.get("/<nama>/topic_trend")
 def get_wisata_topic_trend(nama):
-    # Ambil semua post untuk wisata ini
-    posts = get_posts(nama)
 
-    # Load LDA model
+    posts = get_posts(nama)
     model, id2word = load_lda_model(nama)
 
     topic_counter = {}
@@ -72,31 +70,35 @@ def get_wisata_topic_trend(nama):
         topics = model.get_document_topics(bow)
 
         if topics:
-            topic, prob = max(topics, key=lambda x: x[1])
-            topic_counter[topic] = topic_counter.get(topic, 0) + 1
+            topic_id, prob = max(topics, key=lambda x: x[1])
+            topic_counter[topic_id] = topic_counter.get(topic_id, 0) + 1
 
-    # Format output: ambil top 10 topik paling sering
-    sorted_topics = sorted(topic_counter.items(), key=lambda x: x[1], reverse=True)[:10]
+    # Sort berdasarkan jumlah terbanyak
+    sorted_topics = sorted(topic_counter.items(), key=lambda x: x[1], reverse=True)
 
     output = []
-    for topic, count in sorted_topics:
-        terms = model.print_topic(topic)
+    for topic_id, count in sorted_topics:
+        label = topic_label.get(nama, {}).get(topic_id, f"Topik {topic_id}")
+
         output.append({
-            "topic": topic,
-            "terms": terms,
+            "topic": topic_id,
+            "topic_label": label,
+            "terms": model.print_topic(topic_id),
             "count": count
         })
 
     return jsonify(output)
 
+
+# ------------------- TREND PER TAHUN -------------------
 @wisata_bp.get("/<nama>/topic_trend/<tahun>")
 def topic_trend(nama, tahun):
-    tahun = int(tahun)
+
+    tahun = str(tahun)
 
     posts = get_posts(nama)
-    posts_tahun = [p for p in posts if str(p["created_at"]).startswith(str(tahun))]
+    posts_tahun = [p for p in posts if p["created_at"] and str(p["created_at"]).startswith(tahun)]
 
-    # Load model
     model, id2word = load_lda_model(nama)
 
     topic_counter = {}
@@ -110,20 +112,20 @@ def topic_trend(nama, tahun):
         topics = model.get_document_topics(bow)
 
         if topics:
-            topic, prob = max(topics, key=lambda x: x[1])
-            topic_counter[topic] = topic_counter.get(topic, 0) + 1
+            topic_id, prob = max(topics, key=lambda x: x[1])
+            topic_counter[topic_id] = topic_counter.get(topic_id, 0) + 1
 
-    # Format JSON menghasilkan topic, terms, count
+    sorted_topics = sorted(topic_counter.items(), key=lambda x: x[0])
+
     output = []
-    for topic, count in topic_counter.items():
+    for topic_id, count in sorted_topics:
+        label = topic_label.get(nama, {}).get(topic_id, f"Topik {topic_id}")
+        
         output.append({
-            "topic": topic,
-            "terms": model.print_topic(topic),
+            "topic": topic_id,
+            "topic_label": label,
+            "terms": model.print_topic(topic_id),
             "count": count
         })
 
-    # Urutkan
-    output = sorted(output, key=lambda x: x["count"], reverse=True)
-
     return jsonify(output)
-

@@ -21,10 +21,23 @@ def load_lda_model(wisata):
     return model, id2word
 
 
+topic_label = {
+    "alkid": {
+        0: "Perdagangan & Pedagang Alun-Alun",
+        1: "Fasilitas & Lingkungan Publik",
+        2: "Aktivitas Malam & Nongkrong",
+        3: "Cerita Mistis & Budaya Jawa",
+        4: "Wahana Wisata & Jadwal",
+        5: "Kuliner & Kebersihan Area",
+        6: "Kuliner Tradisional"
+    }
+}
+
+
 # -------------------------------------------------------
 # PREDIKSI TOPIK
 # -------------------------------------------------------
-def predict_topic_from_stemming(model, id2word, stem_text):
+def predict_topic_from_stemming(model, id2word, stem_text, wisata):
     tokens = stem_text.split()
     bow = id2word.doc2bow(tokens)
     topics = model.get_document_topics(bow)
@@ -35,8 +48,10 @@ def predict_topic_from_stemming(model, id2word, stem_text):
     topic_id, prob = max(topics, key=lambda x: x[1])
     return {
         "topic_id": int(topic_id),
+        "topic_label": topic_label.get(wisata, {}).get(int(topic_id), "Unknown"),
         "probability": float(prob)
     }
+
 
 
 # -------------------------------------------------------
