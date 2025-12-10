@@ -30,8 +30,8 @@ export default function Destinasi() {
     {
       id: "lagunapantaidepok",
       slug: "lagunapantaidepok",
-      title: "Pantai Depok",
-      img: "/Pantaidepok.jpg",
+      title: "Laguna Pantai Depok",
+      img: "/lagunapantaidepok.webp",
     },
     {
       id: "gembiraloka",

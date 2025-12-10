@@ -12,7 +12,7 @@ const wisataImages = {
   alkid: "/d3.jpg",
   tamanpintar: "/tamanpintar.jpg",
   prambanan: "/prambanan.jpg",
-  lagunapantaidepok: "/pantaidepok.jpg",
+  lagunapantaidepok: "/lagunapantaidepok.webp",
   gembiraloka: "/gembiraloka.jpg",
 };
 

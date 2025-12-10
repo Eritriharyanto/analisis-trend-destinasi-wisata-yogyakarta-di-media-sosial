@@ -9,8 +9,12 @@ export default function Home() {
     { id: "alkid", img: "/d3.jpg", title: "Alun-Alun Kidul" },
     { id: "tamanpintar", img: "/tamanpintar.jpg", title: "Taman Pintar" },
     { id: "merapi", img: "/GunungMerapi.jpg", title: "Gunung Merapi" },
-    { id: "prambanan", img: "/prambanan.jpg", title: "Prambanan" },
-    { id: "lagunapantaidepok", img: "/Pantaidepok.jpg", title: "Pantai Depok" },
+    { id: "prambanan", img: "/prambanan.jpg", title: "Candi Prambanan" },
+    {
+      id: "lagunapantaidepok",
+      img: "/lagunapantaidepok.webp",
+      title: "Laguna Pantai Depok",
+    },
     { id: "gembiraloka", img: "/gembiraloka.jpg", title: "Gembira Loka" },
   ];
 
