@@ -3,3 +3,14 @@ pip install mysql-connector-python
 pip install python-dotenv
 pip install flask-cors
 pip install recharts
+pip install flask-restfull
+pip install pandas
+pip install matplotlib
+pip install nltk
+pip install gensim
+pip install scikit-learn
+pip install sastrawi
+pip install regex
+pip install numpy
+pip install scipy
+pip install requests
