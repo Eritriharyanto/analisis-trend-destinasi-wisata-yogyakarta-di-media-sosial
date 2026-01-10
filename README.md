@@ -6,7 +6,44 @@ Repository ini merupakan hasil pengolahan **Backend** dan **Frontend** (berasal 
 
 ```
 Backend/
+├── .venv/                     # Virtual environment Python
+├── config/                    # Konfigurasi aplikasi (database, environment, dll)
+├── dictionaries/              # Kamus data (stopwords, sinonim, custom dictionary)
+├── models/                    # Model machine learning (LDA, NLP, dll)
+├── preprocessing/             # Proses pembersihan dan pengolahan data teks
+├── routes/                    # Endpoint / routing API backend
+├── service/                   # Business logic dan service layer
+├── app.py                     # File utama untuk menjalankan backend
+├── create_table.sql           # Script SQL untuk membuat tabel database
+├── insert_data_wisata.sql     # Script SQL untuk insert data wisata
+├── lda.sql                    # Query / konfigurasi terkait LDA
+├── requirements.txt           # Daftar dependency Python yang harus diinstall
+```
+
+```
 Frontend/
+├── node_modules/              # Dependency frontend (hasil install npm)
+├── public/                    # File statis yang bisa diakses langsung
+├── src/                       # Source code utama frontend
+│   ├── assets/                # Asset pendukung (gambar, icon, dll)
+│   ├── components/            # Komponen reusable (Navbar, Card, Footer, dll)
+│   ├── css/                   # File styling CSS
+│   ├── data/                  # Data statis / dummy / konfigurasi frontend
+│   ├── pages/                 # Halaman utama aplikasi (Home, Detail, dll)
+│   ├── App.css                # Styling utama App
+│   ├── App.jsx                # Root component React
+│   ├── index.css              # Styling global
+│   └── main.jsx               # Entry point React (render ke DOM)
+├── .gitignore                 # File/folder yang diabaikan oleh Git
+├── eslint.config.js            # Konfigurasi ESLint
+├── index.html                  # File HTML utama
+├── package-lock.json           # Lock dependency npm
+├── package.json                # Konfigurasi project & dependency
+├── README.md                   # Dokumentasi frontend
+├── vite.config.js              # Konfigurasi Vite
+```
+
+```
 README.md
 ```
 
