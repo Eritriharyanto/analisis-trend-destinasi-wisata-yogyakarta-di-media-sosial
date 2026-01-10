@@ -1,6 +1,5 @@
 import DestinasiCard from "../components/DestinasiCard";
 import "../css/home.css";
-
 export default function Destinasi() {
   const list = [
     {
@@ -70,18 +69,19 @@ export default function Destinasi() {
       img: "/gembiraloka.jpg",
     },
   ];
-
   return (
     <div className='destinasi-wrapper'>
+      {" "}
       <div className='container'>
-        <h1 className='destinasi-title'>Destinasi Tempat Wisata</h1>
-
+        {" "}
+        <h1 className='destinasi-title'>Destinasi Tempat Wisata</h1>{" "}
         <div className='destinasi-grid'>
+          {" "}
           {list.map((d) => (
             <DestinasiCard key={d.id} {...d} />
-          ))}
-        </div>
-      </div>
+          ))}{" "}
+        </div>{" "}
+      </div>{" "}
     </div>
   );
 }
