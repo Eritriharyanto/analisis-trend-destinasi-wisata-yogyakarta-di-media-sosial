@@ -64,6 +64,7 @@ Backend berfungsi untuk pengolahan dan analisis data media sosial.
 * Pandas
 * Gensim (LDA)
 * MySQL
+* Dll
 
 **Struktur penting Backend:**
 
