@@ -97,6 +97,73 @@ Frontend digunakan untuk menampilkan hasil analisis tren destinasi wisata secara
 * `src/data/` → data pendukung
 * `public/` → aset gambar
 
+## 🗃️ Database
+
+```
+gembiraloka
+alkid
+prambanan
+tamanpintar
+lagunapantaidepok
+merapi
+
+Contoh:
+
+CREATE TABLE NAMA (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    created_at DATETIME,
+    favorite_count INT,
+    retweet_count INT,
+    tahun INT,
+    bulan INT,
+    hari VARCHAR (20),
+    bulan_nama VARCHAR(20),
+    cleaning TEXT,
+    cleaning_no_english TEXT,
+    normalization TEXT,
+    stopword TEXT,
+    stemming TEXT,
+    tokenizing LONGTEXT
+);
+```
+
+```
+# Berfungsi sebagai tabel data mentah / pusat (master table) untuk semua tweet/post dari semua destinasi wisata.
+
+CREATE TABLE post (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    wisata VARCHAR(100),
+    created_at DATETIME,
+    favorite_count INT,
+    retweet_count INT,
+    tahun INT,
+    bulan INT,
+    hari VARCHAR(20),
+    bulan_nama VARCHAR(20),
+    full_text TEXT,
+    cleaning TEXT,
+    cleaning_no_english TEXT,
+    normalization TEXT,
+    stopword TEXT,
+    stemming TEXT,
+    tokenizing LONGTEXT
+);
+```
+
+```
+# Menyimpan hasil analisis LDA (topic modeling).
+
+CREATE TABLE lda_topics (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    tahun INT NOT NULL,
+    destinasi VARCHAR(100) DEFAULT NULL,
+    topic_num INT NOT NULL,
+    jumlah INT NOT NULL,
+    terms TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
+
 ## 🎯 Tujuan Proyek
 
 * Mengidentifikasi destinasi wisata Yogyakarta yang sedang tren di media sosial
